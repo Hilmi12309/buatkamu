@@ -666,7 +666,12 @@
            </div>
            <div class="message-bubble">
              <p><b>
-               <span id="ngetik"></span>
+               <span id="ngetik">
+  Tetap jadi semangatku ya..<br>
+  Jangan pergi, jangan jauhi aku 😅<br>
+  Kamu milikku, aku milikmu 💕<br><br>
+  <i>I love you always 💗</i>
+               </span>
              </b></p>
            </div>
            <div class="message-time" id="messageTime6"></div>
@@ -812,12 +817,20 @@ function createFloatingHearts() {
 
 // Initialize typing effect
 function initTypeIt() {
+  const target = document.getElementById('ngetik');
+  const originalText = target.innerHTML;
+
+  // Kosongin dulu isi HTML-nya
+  target.innerHTML = '';
+
+  // Ketik ulang pakai animasi
   typeitInstance = new TypeIt('#ngetik', {
     speed: 50,
     waitUntilVisible: true,
     lifeLike: true,
     cursor: true,
-    afterComplete: function() {
+    html: true, // penting supaya <br> dan <i> dibaca
+    afterComplete: function () {
       typingComplete = true;
       if (currentMessage === totalMessages - 1) {
         nextButton.textContent = "That's all for now!";
@@ -825,15 +838,7 @@ function initTypeIt() {
         nextButton.classList.add('visible');
       }
     }
-  })
-  .type('Tetap jadi semangatku ya..<br>')
-  .pause(400)
-  .type('Jangan pergi, jangan jauhi aku 😅<br>')
-  .pause(400)
-  .type('Kamu milikku, aku milikmu 💕<br><br>')
-  .pause(300)
-  .type('<i>I love you always 💗</i>')
-  .go();
+  }).type(originalText).go();
   }
 
 // Update progress bar and text
