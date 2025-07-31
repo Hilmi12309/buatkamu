@@ -1,0 +1,1570 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untuk Kamu yang Spesial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary: #e83f6f;
+      --secondary: #ff7e5f;
+      --accent: #ffb8c6;
+      --dark: #2a082a;
+      --light: #fff5f7;
+      --bg: linear-gradient(135deg, #3a0c3a 0%, #2a082a 100%);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--light);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Starry Background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 20px white; }
+    }
+    
+    /* Loading Screen */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 1s ease;
+    }
+    
+    .heart-loader {
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      position: relative;
+      transform: rotate(45deg);
+      animation: pulse 1.5s infinite;
+      margin-bottom: 20px;
+    }
+    
+    .heart-loader:before,
+    .heart-loader:after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      position: absolute;
+    }
+    
+    .heart-loader:before {
+      top: -25px;
+      left: 0;
+    }
+    
+    .heart-loader:after {
+      top: 0;
+      left: -25px;
+    }
+    
+    @keyframes pulse {
+      0% { transform: rotate(45deg) scale(1); }
+      50% { transform: rotate(45deg) scale(1.2); }
+      100% { transform: rotate(45deg) scale(1); }
+    }
+    
+    .loading-text {
+      font-family: 'Dancing Script', cursive;
+      color: var(--accent);
+      font-size: 1.2rem;
+      animation: fadeInOut 2s infinite;
+    }
+    
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+    
+    /* Main Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+    
+    .loaded {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+    }
+    
+    .heart {
+      display: inline-block;
+      animation: heartbeat 1.5s infinite;
+    }
+    
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Message Slider */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      margin-bottom: 2rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    @media (max-width: 768px) {
+      .slider-container {
+        height: 450px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .slider-container {
+        height: 400px;
+      }
+    }
+    
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    
+    .message {
+      min-width: 100%;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
+    }
+    
+    .sticker {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      animation: float 3s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(2deg); }
+      50% { transform: translateY(0) rotate(0deg); }
+      75% { transform: translateY(-10px) rotate(-2deg); }
+    }
+    
+    .sticker img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .message-text {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      max-width: 90%;
+    }
+    
+    .message-text p {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .message-time {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: auto;
+      align-self: flex-end;
+    }
+    
+    /* Navigation */
+    .nav-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+      box-shadow: 0 0 10px var(--primary);
+    }
+    
+    .dot.completed {
+      background: var(--secondary);
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease 0.5s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 5px 15px rgba(232, 63, 111, 0.4);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      transition: all 0.5s;
+    }
+    
+    .btn:hover::after {
+      left: 100%;
+    }
+    
+    .btn.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 8px 20px rgba(232, 63, 111, 0.6);
+    }
+    
+    /* Interactive Section */
+    .interactive {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+    
+    /* Love Meter */
+    .love-meter {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .heart-btn {
+      cursor: pointer;
+      transition: transform 0.3s;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    .heart-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .heart-btn svg {
+      width: 80px;
+      height: 80px;
+      transition: all 0.3s;
+      filter: drop-shadow(0 0 10px rgba(232, 63, 111, 0.5));
+      fill: var(--primary);
+    }
+    
+    .heart-caption {
+      color: var(--accent);
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 1rem;
+      min-height: 24px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto 1rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      height: 12px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+      position: relative;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.3) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .progress-text {
+      font-family: 'Dancing Script', cursive;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+    
+    /* Special Photo */
+    .special-photo {
+      width: 100%;
+      max-width: 350px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border: 3px solid var(--primary);
+      animation: pulse 2s infinite;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    
+    /* Special Qualities Section */
+    .qualities {
+      display: none;
+      margin-top: 2rem;
+    }
+    
+    .qualities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    @media (min-width: 600px) {
+      .qualities-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .quality-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(5px);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    
+    .quality-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .quality-title {
+      font-family: 'Dancing Script', cursive;
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .quality-title i {
+      font-size: 1.2rem;
+    }
+    
+    /* Countdown */
+    .countdown {
+      display: none;
+      margin-top: 2rem;
+    }
+    
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .countdown-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1rem;
+      min-width: 70px;
+      text-align: center;
+    }
+    
+    .countdown-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .countdown-label {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 184, 198, 0.2);
+      color: var(--accent);
+    }
+    
+    .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* jarak antar ikon */
+  margin-top: 0.5rem;
+}
+
+.footer-links a {
+  color: white;
+  font-size: 1.4rem;
+  transition: transform 0.3s;
+}
+
+.footer-links a:hover {
+  transform: scale(1.2);
+}
+    
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary);
+      opacity: 0;
+      z-index: 999;
+      pointer-events: none;
+    }
+    
+    /* Typing Animation */
+    .typed-cursor {
+      opacity: 1;
+      animation: blink 0.7s infinite;
+    }
+    
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .photo-gallery {
+  display: none;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.photo-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 0.5rem;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%; /* Penting biar tingginya sama */
+  overflow: hidden;
+  text-align: center;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Menjaga rasio 1:1, gambar akan terpotong jika perlu */
+  aspect-ratio: 1/1; /* Membuat gambar tetap berbentuk kotak */
+  border-radius: 10px;
+}
+
+.photo-item p {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: var(--accent);
+  font-family: 'Dancing Script', cursive;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.2;
+}
+  </style>
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="stars" id="stars"></div>
+  
+  <!-- Audio Elements -->
+  <audio src="https://feeldreams.github.io/audio/thousand.mp3" id="bgMusic" loop></audio>
+  <audio src="https://feeldreams.github.io/audio/notification.mp3" id="notifSound"></audio>
+  <audio src="https://feeldreams.github.io/audio/heartbeat.mp3" id="heartbeatSound"></audio>
+  <audio src="https://feeldreams.github.io/audio/pop.mp3" id="popSound"></audio>
+  <audio src="https://feeldreams.github.io/audio/sparkle.mp3" id="sparkleSound"></audio>
+  
+  <!-- Loading Screen -->
+  <div class="loader">
+    <div class="heart-loader"></div>
+    <div class="loading-text">Mempersiapkan hati untuk yang spesial...</div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="container" id="container">
+    <header class="header">
+      <h1>Untuk Kamu yang Spesial <span class="heart">💖</span></h1>
+    </header>
+    
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="navDots">
+      <div class="dot" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+      <div class="dot" data-index="3"></div>
+      <div class="dot" data-index="4"></div>
+      <div class="dot" data-index="5"></div>
+    </div>
+    
+    <!-- Message Slider -->
+    <div class="slider-container">
+      <div class="slider-track" id="sliderTrack">
+        <!-- Message 1 -->
+        <div class="message" data-index="0">
+          <div class="sticker">
+            <img src="https://feeldreams.github.io/pusn.gif" alt="Heart Sticker">
+          </div>
+          <div class="message-text">
+            <p>Hai sayangku,<br>Aku hanya ingin mengucapkan<br>terima kasih.. 🫠</p>
+          </div>
+          <div class="message-time" id="messageTime1"></div>
+        </div>
+        
+        <!-- Message 2 -->
+        <div class="message" data-index="1">
+          <div class="sticker">
+            <img src="https://feeldreams.github.io/bunga.gif" alt="Flower Sticker">
+          </div>
+          <div class="message-text">
+            <p>Terima kasih sudah mencintaiku<br>sepenuh hatimu 🫶</p>
+          </div>
+          <div class="message-time" id="messageTime2"></div>
+        </div>
+        
+        <!-- Message 3 -->
+        <div class="message" data-index="2">
+          <div class="sticker">
+            <img src="https://feeldreams.github.io/ngumpet.gif" alt="Cute Sticker">
+          </div>
+          <div class="message-text">
+            <p>Terima kasih sudah hadir<br>di hidupku 💗</p>
+          </div>
+          <div class="message-time" id="messageTime3"></div>
+        </div>
+        
+        <!-- Message 4 -->
+        <div class="message" data-index="3">
+          <div class="sticker">
+            <img src="https://feeldreams.github.io/gumush.gif" alt="Blushing Sticker">
+          </div>
+          <div class="message-text">
+            <p>Maaf kalau aku kadang<br>bikin kmu kesel :(</p>
+          </div>
+          <div class="message-time" id="messageTime4"></div>
+        </div>
+        
+        <!-- Message 5 -->
+        <div class="message" data-index="4">
+          <div class="sticker">
+            <img src="https://feeldreams.github.io/pusn.gif" alt="Heart Sticker">
+          </div>
+          <div class="message-text">
+            <p>Tapi percayalah, aku tuh tulus<br>mencintaimu 🤍</p>
+          </div>
+          <div class="message-time" id="messageTime5"></div>
+        </div>
+        
+        <!-- Message 6 -->
+        <div class="message" data-index="5">
+          <div class="sticker">
+            <img src="https://feeldreams.github.io/mmua.gif" alt="Kiss Sticker">
+          </div>
+          <div class="message-text">
+            <p id="typedMessage"></p>
+          </div>
+          <div class="message-time" id="messageTime6"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="prevBtn">
+        <i class="fas fa-arrow-left"></i> Sebelumnya
+      </button>
+      <button class="btn btn-primary" id="nextBtn">
+        Selanjutnya <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+    
+    <!-- Interactive Section -->
+    <section class="interactive">
+      <h2 class="section-title">Touch my heart</h2>
+      
+      <div class="love-meter">
+        <div class="heart-btn" id="heartBtn">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Template love (hidden) -->
+  <path id="lovePath" d="M100 30c-20-40-80 0-20 50 30 25 50 60 20 90-30-30-10-65 20-90 60-50 0-90-20-50z" fill="none"/>
+  
+  <!-- Filter untuk efek glow -->
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+  </filter>
+  
+  <!-- 50 partikel/benang acak -->
+  <g>
+    <script>
+      // Fungsi untuk posisi acak
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      
+      // Buat 50 partikel
+      for(let i=0; i<200; i++) {
+        const x = random(0, 200);
+        const y = random(0, 200);
+        const delay = random(0, 3);
+        const duration = random(2, 4);
+        
+        document.write(`
+          <circle cx="${x}" cy="${y}" r="0.5" fill="#ff3366">
+            <animateMotion 
+              path="M${x},${y} L100,100" 
+              begin="${delay}s" 
+              dur="${duration}s" 
+              fill="freeze"
+              calcMode="spline"
+              keyTimes="0;1"
+              keySplines="0.1 0.8 0.2 1"/>
+          </circle>
+        `);
+      }
+    </script>
+    
+    <!-- Love yang muncul setelah partikel berkumpul -->
+    <path d="M100 30c-20-40-80 0-20 50 30 25 50 60 20 90-30-30-10-65 20-90 60-50 0-90-20-50z" 
+          fill="#ff0033" 
+          opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="4s" dur="1s" fill="freeze"/>
+    </path>
+  </g>
+  
+  <!-- Animasi ulang setelah selesai -->
+  <animate xlink:href="#lovePath" attributeName="visibility" from="visible" to="hidden" begin="8s" dur="0.1s" fill="freeze"/>
+  <set xlink:href="#lovePath" attributeName="visibility" to="visible" begin="8.1s"/>
+</svg>
+        </div>
+        
+        <p class="heart-caption" id="heartCaption">Sentuh hatiku!</p>
+        
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <p class="progress-text" id="progressText">0%</p>
+      </div>
+      
+      <!-- Special Photo -->
+      <div class="photo-gallery" id="photoGallery">
+  <h2 class="section-title">Kamu cantik banget liat foto-foto kamu</h2>
+  <div class="photo-grid">
+    <div class="photo-item">
+      <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/refs/heads/main/foto/IMG-20250610-WA0030.jpg" alt="Foto 1">
+      <p>Lucu naa</p>
+    </div>
+    <div class="photo-item">
+      <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/refs/heads/main/foto/IMG-20250725-WA0316.jpg" alt="Foto 2">
+      <p>Cemberut mulu nengg</p>
+    </div>
+    <div class="photo-item">
+       <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250611-WA1028.jpg" alt="Foto 3">
+      <p>Cantik bangett</p>
+    </div>
+    <div class="photo-item">
+      <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250620-WA0193.jpg" alt="Foto 4">
+      <p>Gemes banget yang ini tuh 😆</p>
+    </div>
+    <div class="photo-item">
+       <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250725-WA0314.jpg" alt="Foto 5">
+      <p>Muka kamu = definisi lucu bgt 🤓</p>
+    </div>
+    <div class="photo-item">
+       <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250725-WA0332.jpg" alt="Foto 6">
+      <p>Kalo ini kayaknya abis makan enak yaa 🤤</p>
+    </div>
+    <div class="photo-item">
+       <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250725-WA0339.jpg" alt="Foto 7">
+  <p>Ini lucu parah sih 😆</p>
+    </div>
+    <div class="photo-item">
+      <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250725-WA0346.jpg" alt="Foto 8">
+      <p>No comment dah lucu abis</p>
+    </div>
+    <div class="photo-item">
+      <img src="https://raw.githubusercontent.com/Hilmi12309/aseet/main/foto/IMG-20250731-WA0100.jpg" alt="Foto 9">
+      <p>Ututututt 🥲</p>
+    </div>
+  </div>
+</div>
+      
+      <!-- Special Qualities -->
+      <div class="qualities" id="qualities">
+        <h2 class="section-title">Keistimewaan Kamu</h2>
+        
+        <div class="qualities-grid">
+          <div class="quality-card">
+            <h3 class="quality-title"><i class="fas fa-heart"></i> 5 Hal yang Aku Suka</h3>
+            <ol>
+              <li>Senyuman kamu.. yak gitu lah 😁</li>
+              <li>Kamu lucu 😋</li>
+              <li>Ke absurdtan kamu</li>
+              <li>Ketawa mu</li>
+              <li>Cara kamu bicara</li>
+            </ol>
+          </div>
+          
+          <div class="quality-card">
+            <h3 class="quality-title"><i class="fas fa-star"></i> 5 Hal Spesial Tentangmu</h3>
+            <ol>
+              <li>Kamu special di mata ku</li>
+              <li>Kamu tuh penyabar bngt</li>
+              <li>Kamu membuatku menjadi nyaman</li>
+              <li>Kamu terlalu baik</li>
+              <li>Kamu pacar rl aku yang paling aku cintai</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Countdown -->
+      <div class="countdown" id="countdown">
+        <h2 class="section-title">Countdown ke hari ultah kamu</h2>
+        
+        <div class="countdown-container">
+          <div class="countdown-box">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label">Hari</div>
+          </div>
+          
+          <div class="countdown-box">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label">Jam</div>
+          </div>
+          
+          <div class="countdown-box">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label">Menit</div>
+          </div>
+          
+          <div class="countdown-box">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label">Detik</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+  <p>Dibuat dengan <i class="fas fa-heart"></i> oleh Amor</p>
+  <div class="footer-links">
+    <a href="https://github.com/Hilmi12309" target="_blank" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://instagram.com/mieeg0reng" target="_blank" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://tiktok.com/@proxy" target="_blank" aria-label="TikTok">
+      <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://wa.me/6281574647741?text=Hallo" target="_blank" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+</footer>
+  </div>
+
+  <script>
+  // Configuration
+const config = {
+  heartMessages: [
+    "Hai Cinta",
+    "Manis Banget",
+    "Rindu Kamu",
+    "Cinta Selalu",
+    "Peluk Dulu",
+    "Dekat Terus",
+    "Kangen Kamu",
+    "Senyum Dikit",
+    "Lihat Aku",
+    "Sini Peluk"
+  ],
+  heartColors: [
+    "#e83f6f", "#ff7e5f", "#ffb8c6", 
+    "#ff4757", "#ff6348", "#ff7f50",
+    "#ffa502", "#eccc68", "#7bed9f",
+    "#70a1ff"
+  ],
+  finalMessage: `Tetaplah bersama ku, kamu gak boleh pergi, aku milik mu dan kamu milik kuu ❤‍🩹.<br><br><i>I Love You 🤍</i>`,
+  
+  nextSpecialDate: (function () {
+    const today = new Date();
+    const yearNow = today.getFullYear();
+    let target = new Date(yearNow, 8, 6, 0, 0, 0); // 6 September
+
+    if (today > target) {
+      target = new Date(yearNow + 1, 8, 6, 0, 0, 0);
+    }
+
+    return target;
+  })()
+};
+  
+  // DOM Elements
+  const starsContainer = document.getElementById('stars');
+  const loader = document.querySelector('.loader');
+  const container = document.getElementById('container');
+  const sliderTrack = document.getElementById('sliderTrack');
+  const navDots = document.querySelectorAll('.dot');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const heartBtn = document.getElementById('heartBtn');
+  const heartSvg = heartBtn.querySelector('svg');
+  const heartCaption = document.getElementById('heartCaption');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  const specialPhoto = document.getElementById('specialPhoto');
+  const qualities = document.getElementById('qualities');
+  const countdown = document.getElementById('countdown');
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+  const typedMessage = document.getElementById('typedMessage');
+  const messageTimes = [
+    document.getElementById('messageTime1'),
+    document.getElementById('messageTime2'),
+    document.getElementById('messageTime3'),
+    document.getElementById('messageTime4'),
+    document.getElementById('messageTime5'),
+    document.getElementById('messageTime6')
+  ];
+  const bgMusic = document.getElementById('bgMusic');
+  const notifSound = document.getElementById('notifSound');
+  const heartbeatSound = document.getElementById('heartbeatSound');
+  const popSound = document.getElementById('popSound');
+  const sparkleSound = document.getElementById('sparkleSound');
+  
+  // State Variables
+  let currentSlide = 0;
+  const totalSlides = 6;
+  let clickCount = 0;
+  const maxClicks = 10;
+  let progress = 0;
+  let countdownInterval = null;
+  
+  // Create Stars
+  function createStars() {
+    for (let i = 0; i < 45; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = `${Math.random() * 3 + 1}px`;
+      star.style.height = star.style.width;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      star.style.opacity = Math.random() * 0.8 + 0.2;
+      starsContainer.appendChild(star);
+    }
+  }
+  
+  // Set Message Times
+  function setMessageTimes() {
+    const now = new Date();
+    
+    messageTimes.forEach((el, index) => {
+      const time = new Date(now);
+      time.setMinutes(now.getMinutes() - (messageTimes.length - index - 1));
+      el.textContent = time.toLocaleTimeString('id-ID', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      }) + ' • ' + time.toLocaleDateString('id-ID', { 
+        day: 'numeric',
+        month: 'short'
+      });
+    });
+  }
+  
+  // Update Navigation Dots
+  function updateDots() {
+    navDots.forEach((dot, index) => {
+      if (index < currentSlide) {
+        dot.classList.add('completed');
+        dot.classList.remove('active');
+      } else if (index === currentSlide) {
+        dot.classList.add('active');
+        dot.classList.remove('completed');
+      } else {
+        dot.classList.remove('active', 'completed');
+      }
+    });
+  }
+  
+  // Custom Typing Animation
+  function typeWriter(element, html, speed, callback) {
+  element.innerHTML = '';
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = html;
+  const nodes = Array.from(tempDiv.childNodes);
+
+  function typeNode(nodeList, index = 0) {
+    if (index >= nodeList.length) {
+      if (callback) callback();
+      return;
+    }
+
+    const node = nodeList[index];
+
+    if (node.nodeType === Node.TEXT_NODE) {
+      let text = node.textContent;
+      let j = 0;
+      function typeChar() {
+        if (j < text.length) {
+          element.innerHTML += text[j];
+          j++;
+          setTimeout(typeChar, speed);
+        } else {
+          typeNode(nodeList, index + 1);
+        }
+      }
+      typeChar();
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const clone = node.cloneNode();
+      element.appendChild(clone);
+      typeWriter(clone, node.innerHTML, speed, () => {
+        typeNode(nodeList, index + 1);
+      });
+    }
+  }
+
+  typeNode(nodes);
+}
+  
+  // Go to Slide
+  function goToSlide(index) {
+    currentSlide = index;
+    const slideWidth = sliderTrack.children[0].offsetWidth;
+    sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    updateDots();
+    
+    // Handle navigation buttons
+    if (currentSlide === 0) {
+      prevBtn.classList.remove('visible');
+    } else {
+      prevBtn.classList.add('visible');
+    }
+    
+    if (currentSlide === totalSlides - 1) {
+      nextBtn.textContent = "Sudah selesai!";
+      nextBtn.disabled = true;
+      
+      // Initialize typing effect for last message
+      typeWriter(typedMessage, config.finalMessage, 50, () => {
+        nextBtn.classList.add('visible');
+      });
+    } else {
+      nextBtn.innterHtml = "Selanjutnya <i class='fas fa-arrow-right'></i>";
+      nextBtn.disabled = false;
+      nextBtn.classList.add('visible');
+    }
+  }
+  
+  // Previous Slide
+  function prevSlide() {
+    if (currentSlide <= 0) return;
+    popSound.currentTime = 0;
+    popSound.play();
+    goToSlide(currentSlide - 1);
+  }
+  
+  // Next Slide
+  function nextSlide() {
+    if (currentSlide >= totalSlides - 1) return;
+    popSound.currentTime = 0;
+    popSound.play();
+    goToSlide(currentSlide + 1);
+  }
+  
+  // Update Progress
+  function updateProgress() {
+    progress = (clickCount / maxClicks) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressText.textContent = `${Math.round(progress)}%`;
+    
+    // Update heart color
+    const colorIndex = Math.min(
+      Math.floor(clickCount / (maxClicks / config.heartColors.length)), 
+      config.heartColors.length - 1
+    );
+    heartSvg.style.fill = config.heartColors[colorIndex];
+    heartSvg.style.filter = `drop-shadow(0 0 15px ${config.heartColors[colorIndex]})`;
+    
+    // Update caption
+    const messageIndex = Math.min(clickCount - 1, config.heartMessages.length - 1);
+    heartCaption.textContent = config.heartMessages[messageIndex];
+    
+    // Show special content at 100%
+    if (progress >= 100) {
+  localStorage.setItem("loveProgress", "100");
+
+  document.getElementById("photoGallery").style.display = "block";
+  qualities.style.display = 'block';
+  countdown.style.display = 'block';
+
+  animateElement(photoGallery, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 1000 });
+  animateElement(qualities, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1000, delay: 300 });
+  animateElement(countdown, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1000, delay: 600 });
+
+  heartbeatSound.currentTime = 0;
+  heartbeatSound.play();
+
+  createHeartExplosion(50, heartSvg.style.fill);
+  startCountdown();
+}
+  }
+  
+  // Simple animation function
+  function animateElement(element, from, to) {
+    const startTime = performance.now();
+    const duration = to.duration || 500;
+    const delay = to.delay || 0;
+    const easing = to.easing || 'ease-in-out';
+    
+    // Set initial state
+    for (const prop in from) {
+      if (prop === 'opacity') {
+        element.style.opacity = from[prop];
+      } else if (prop === 'scale') {
+        element.style.transform = `scale(${from[prop]})`;
+      } else if (prop === 'y') {
+        element.style.transform = `translateY(${from[prop]}px)`;
+      }
+    }
+    
+    function animate(timestamp) {
+      if (timestamp < startTime + delay) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      
+      const elapsed = timestamp - startTime - delay;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Apply easing
+      let easedProgress;
+      if (easing === 'ease-in-out') {
+        easedProgress = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      } else if (easing.includes('cubic-bezier')) {
+        // Simplified cubic-bezier approximation
+        easedProgress = progress * progress * progress;
+      } else {
+        easedProgress = progress;
+      }
+      
+      // Animate each property
+      for (const prop in from) {
+        const startValue = from[prop];
+        const endValue = to[prop];
+        const currentValue = startValue + (endValue - startValue) * easedProgress;
+        
+        if (prop === 'opacity') {
+          element.style.opacity = currentValue;
+        } else if (prop === 'scale') {
+          element.style.transform = `scale(${currentValue})`;
+        } else if (prop === 'y') {
+          element.style.transform = `translateY(${currentValue}px)`;
+        }
+      }
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    }
+    
+    requestAnimationFrame(animate);
+  }
+  
+  // Create Heart Explosion
+  function createHeartExplosion(count, color) {
+    const rect = heartBtn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    
+    for (let i = 0; i < count; i++) {
+      const heart = document.createElement('div');
+      heart.innerHTML = '•';
+      heart.style.position = 'fixed';
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      heart.style.fontSize = '20px';
+      heart.style.color = color;
+      heart.style.zIndex = '999';
+      heart.style.pointerEvents = 'none';
+      document.body.appendChild(heart);
+      
+      // Animate heart
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 150 + 50;
+      const duration = 500 + Math.random() * 500;
+      
+      let startTime;
+      function explodeHeart(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = (timestamp - startTime) / duration;
+        
+        if (progress < 1) {
+          const easedProgress = 1 - Math.pow(1 - progress, 2); // ease-out
+          heart.style.left = `${x + Math.cos(angle) * distance * easedProgress}px`;
+          heart.style.top = `${y + Math.sin(angle) * distance * easedProgress - 50 * easedProgress}px`;
+          heart.style.opacity = 1 - progress * 0.8;
+          requestAnimationFrame(explodeHeart);
+        } else {
+          heart.remove();
+        }
+      }
+      
+      requestAnimationFrame(explodeHeart);
+    }
+  }
+  
+  // Create Sparkle Effect
+  function createSparkleEffect() {
+    const rect = heartBtn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    
+    sparkleSound.currentTime = 0;
+    sparkleSound.play();
+    
+    for (let i = 0; i < 8; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('confetti');
+      sparkle.style.left = `${x}px`;
+      sparkle.style.top = `${y}px`;
+      sparkle.style.width = `${Math.random() * 8 + 4}px`;
+      sparkle.style.height = sparkle.style.width;
+      sparkle.style.backgroundColor = config.heartColors[Math.floor(Math.random() * config.heartColors.length)];
+      sparkle.style.borderRadius = '50%';
+      document.body.appendChild(sparkle);
+      
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 100 + 50;
+      
+      // Animate sparkle
+      let startTime;
+      function animateSparkle(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = (timestamp - startTime) / 800;
+        
+        if (progress < 1) {
+          const easedProgress = 1 - Math.pow(1 - progress, 2); // ease-out
+          sparkle.style.left = `${x + Math.cos(angle) * distance * easedProgress}px`;
+          sparkle.style.top = `${y + Math.sin(angle) * distance * easedProgress - 50 * easedProgress}px`;
+          sparkle.style.opacity = 1 - progress;
+          requestAnimationFrame(animateSparkle);
+        } else {
+          sparkle.remove();
+        }
+      }
+      
+      requestAnimationFrame(animateSparkle);
+    }
+  }
+  
+  // Start Countdown
+  function startCountdown() {
+    // Clear existing interval
+    if (countdownInterval) clearInterval(countdownInterval);
+    
+    // Update immediately
+    updateCountdown();
+    
+    // Update every second
+    countdownInterval = setInterval(updateCountdown, 1000);
+  }
+  
+  // Update Countdown
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = config.nextSpecialDate - now;
+    
+    // If countdown is over
+    if (distance < 0) {
+      clearInterval(countdownInterval);
+      countdown.innerHTML = '<p>Hari spesial kita sudah tiba! 🎉</p>';
+      return;
+    }
+    
+    // Calculate time units
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Update display
+    daysEl.textContent = days.toString().padStart(2, '0');
+    hoursEl.textContent = hours.toString().padStart(2, '0');
+    minutesEl.textContent = minutes.toString().padStart(2, '0');
+    secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  // Initialize
+  function init() {
+    createStars();
+    setMessageTimes();
+    updateDots();
+    
+    // Hide loader after 2 seconds
+    setTimeout(() => {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+        container.classList.add('loaded');
+        
+        // Show first message with animation
+        animateElement(document.querySelector(".message[data-index='0']"), {
+          x: 100,
+          opacity: 0
+        }, {
+          x: 0,
+          opacity: 1,
+          duration: 1000,
+          delay: 500,
+          easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+        });
+        
+        // Show next button after delay
+        setTimeout(() => {
+          nextBtn.classList.add('visible');
+        }, 1500);
+        
+        // Try to play background music
+        bgMusic.volume = 0.3;
+        const playPromise = bgMusic.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // Autoplay was prevented, show play button
+            const playBtn = document.createElement('button');
+            playBtn.className = 'btn btn-primary visible';
+            playBtn.style.margin = '1rem auto';
+            playBtn.innerHTML = '<i class="fas fa-music"></i> Putar Musik';
+            playBtn.addEventListener('click', () => {
+              bgMusic.play();
+              playBtn.remove();
+            });
+            document.querySelector('.nav-buttons').appendChild(playBtn);
+          });
+        }
+      }, 1000);
+    }, 2000);
+    
+    // Event Listeners
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    // Dot navigation
+    navDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'));
+        if (index !== currentSlide) {
+          popSound.currentTime = 0;
+          popSound.play();
+          goToSlide(index);
+        }
+      });
+    });
+    
+    // Heart button interaction
+    heartBtn.addEventListener('click', () => {
+      notifSound.currentTime = 0;
+      notifSound.play();
+      clickCount = Math.min(clickCount + 1, maxClicks);
+      
+      // Add pulse animation
+      animateElement(heartSvg, {
+        scale: 1
+      }, {
+        scale: 1.3,
+        duration: 200,
+        easing: 'ease-in-out'
+      });
+      
+      // Create sparkle effect
+      createSparkleEffect();
+      
+      // Create mini heart explosion
+      createHeartExplosion(15, heartSvg.style.fill);
+      
+      // Update progress
+      updateProgress();
+    });
+  }
+  
+  // Start when DOM is loaded
+  document.addEventListener('DOMContentLoaded', init);
+  
+  // Prevent leaving page accidentally
+  window.addEventListener('beforeunload', (e) => {
+    e.preventDefault();
+    e.returnValue = 'Apakah kamu yakin ingin meninggalkan pesan spesial ini?';
+  });
+  </script>
+  <script>
+  (function() {
+    const finalHTML = `
+    Tetaplah bersama ku,<br>
+    kamu gak boleh pergi,<br>
+    <b>aku milik mu</b> dan <i>kamu milik kuu</i>.<br><br>
+    <span style="font-size:1.2em;">I Love You 🤍</span>
+  `;
+    
+    const target = document.getElementById('typedMessage');
+    if (!target) return;
+    
+    function typeWriterHTML(el, html, speed, done) {
+      el.innerHTML = ''; // Kosongkan konten lama
+      let i = 0;
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+      const nodes = Array.from(tempDiv.childNodes);
+      
+      function typeNode(list, index = 0) {
+        if (index >= list.length) {
+          if (done) done();
+          return;
+        }
+        
+        const node = list[index];
+        
+        if (node.nodeType === Node.TEXT_NODE) {
+          let text = node.textContent;
+          let j = 0;
+          
+          function typeChar() {
+            if (j < text.length) {
+              el.innerHTML += text[j++];
+              setTimeout(typeChar, speed);
+            } else {
+              typeNode(list, index + 1);
+            }
+          }
+          
+          typeChar();
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const clone = node.cloneNode();
+          el.appendChild(clone);
+          typeWriterHTML(clone, node.innerHTML, speed, () => {
+            typeNode(list, index + 1);
+          });
+        }
+      }
+      
+      typeNode(nodes);
+    }
+    
+    typeWriterHTML(target, finalHTML, 40);
+  })();
+</script>
+</body>
+</html>
